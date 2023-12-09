@@ -28,7 +28,7 @@ def get_all_albuns_by(key: str, value: str, albuns: list):
     for album in albuns:
         if value.lower() in album[key].lower():
             filtered_albuns.append(album)
-    return filtered_albuns
+    return filtered_albuns if value else albuns
 
 
 def get_album_previous_year(date, albuns):

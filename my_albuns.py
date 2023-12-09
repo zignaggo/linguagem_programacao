@@ -27,27 +27,26 @@ def clean_albuns(tree_view: ttk.Treeview):
         tree_view.delete(line)
 
 
-   
-
 def on_submit(author: ttk.Entry, date: ttk.Combobox, date_time: IntVar, label_message: ttk.Label, tree_view: ttk.Treeview, albuns: list, button: ttk.Button):
     author_value = author.get()
     date_time_value = date_time.get()
     date_value = date.get()
-    filtered_albuns = albuns
-    print(date_value)
+    filtered_albuns = domain.get_all_albuns_by('author', author_value, albuns)
+
     if not author_value and not date_value:
         label_message.configure(text="Nenhum filtro selecionado")
-    elif author_value:
-        filtered_albuns = domain.get_all_albuns_by('author', author_value, albuns)
-    elif date_time_value:
+    elif date_time_value and date_value:
         if date_time_value == 1:
             filtered_albuns = domain.get_album_previous_year(date_value, albuns)
         elif date_time_value == 2:
             filtered_albuns = domain.get_album_same_year(date_value, albuns)
         elif date_time_value == 3:
             filtered_albuns = domain.get_album_later_year(date_value, albuns)
+    
     clean_albuns(tree_view)
+    print(filtered_albuns)
     render_albuns(tree_view, filtered_albuns)
+
     def clean_label():
         label_message.configure(text='', foreground=ERROR)
     button.after(1500, clean_label)
