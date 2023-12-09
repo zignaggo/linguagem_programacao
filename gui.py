@@ -70,20 +70,22 @@ year_label.pack(anchor="w", pady=2)
 year_input = ttk.Spinbox(inputs_section, name="year", from_=1900, to=date.today().year, width=INPUT_WIDTH)
 year_input.pack(anchor="w", pady=INPUT_PY)
 
-release_checkbox = ttk.Checkbutton(inputs_section, variable=isReleased, style='Switch.TCheckbutton')
-release_checkbox.pack(anchor="w", pady=INPUT_PY)
-
 release_label = ttk.Label(inputs_section, text="É lançamento?", font=('Roboto', 12, "normal"),  foreground=TITLE )
 release_label.pack(anchor="w", pady=2, side='left')
 
+release_checkbox = ttk.Checkbutton(inputs_section, variable=isReleased, style='Switch.TCheckbutton')
+release_checkbox.pack(anchor="w", pady=INPUT_PY)
+
+
+message_label = ttk.Label(root, font=('Roboto', 12, "normal"), foreground=ERROR)
+message_label.pack(anchor='w', padx=24, pady=8)
 
 # Buttons
 create_button = ttk.Button(root, text='Criar Album', width=INPUT_WIDTH, style='Accent.TButton')
 create_button.pack(anchor="w", padx=24, pady=8)
 list_button = ttk.Button(root, text='Meus albuns', width=INPUT_WIDTH)
 list_button.pack(anchor="w", padx=24, pady=8, side='top')
-message_label = ttk.Label(root, font=('Roboto', 12, "normal"),  foreground=ERROR)
-message_label.pack(anchor='w', padx=24, pady=8)
+
 
 # Events Functions
 def clean_label():
@@ -106,7 +108,7 @@ def validateInputs():
     return True
 
 
-def on_submit(_event):
+def bind_on_submit(_event):
     is_realized_value = 'Sim' if isReleased.get() else 'Nao'
     if validateInputs():
         save_album(author_input.get(),
@@ -120,7 +122,7 @@ def on_submit(_event):
 
 
 # Listen Events
-create_button.bind('<Button-1>', on_submit)
+create_button.bind('<Button-1>', bind_on_submit)
 list_button.bind('<Button-1>', open_my_albuns_screen)
 
 if __name__ == "__main__":

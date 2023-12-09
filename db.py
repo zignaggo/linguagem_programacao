@@ -1,19 +1,9 @@
 """
 DB File: Read and write content
 """
-import timeit
-def time_execution(f):
-    """fuck"""
-    def wrapper():
-        st = timeit.default_timer()
-        soma = f()
-        end = timeit.default_timer() - st
-        print(f"time spent: {end}")
-        return soma
-    return wrapper
-
+import os
 FILE_NAME = 'dist/deezer.txt'
-
+os.makedirs(os.path.dirname(FILE_NAME), exist_ok=True)
 
 def save_on_db(file_name, content: dict):
     """
@@ -44,5 +34,3 @@ def get_from_db(file_name):
                 list_content.append(object_person)
     return list_content
 
-# save_on_db(FILE_NAME, {'name': 'Jorge', 'year': 212})
-# get_from_db(FILE_NAME)
