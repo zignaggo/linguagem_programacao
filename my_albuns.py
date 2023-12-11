@@ -37,14 +37,13 @@ def on_submit(author: ttk.Entry, date: ttk.Combobox, date_time: IntVar, label_me
         label_message.configure(text="Nenhum filtro selecionado")
     elif date_time_value and date_value:
         if date_time_value == 1:
-            filtered_albuns = domain.get_album_previous_year(date_value, albuns)
+            filtered_albuns = domain.get_album_previous_year(date_value, filtered_albuns)
         elif date_time_value == 2:
-            filtered_albuns = domain.get_album_same_year(date_value, albuns)
+            filtered_albuns = domain.get_album_same_year(date_value, filtered_albuns)
         elif date_time_value == 3:
-            filtered_albuns = domain.get_album_later_year(date_value, albuns)
+            filtered_albuns = domain.get_album_later_year(date_value, filtered_albuns)
     
     clean_albuns(tree_view)
-    print(filtered_albuns)
     render_albuns(tree_view, filtered_albuns)
 
     def clean_label():
